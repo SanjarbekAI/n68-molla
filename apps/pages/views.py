@@ -11,6 +11,8 @@ def contact_page_view(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
+            form.save(commit=False)
+            form.result = 1313
             form.save()
             return redirect('pages:contact')
         else:

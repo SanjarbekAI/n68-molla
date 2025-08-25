@@ -8,6 +8,7 @@ class ContactForm(forms.ModelForm):
         model = ContactModel
         exclude = ['is_read', 'comment']
 
+
     def clean(self):
         print("1. object level validation")
         print(self.cleaned_data)
