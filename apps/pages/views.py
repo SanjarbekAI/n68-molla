@@ -27,3 +27,6 @@ def contact_page_view(request):
 
     else:
         return render(request, 'pages/contact.html')
+
+
+
