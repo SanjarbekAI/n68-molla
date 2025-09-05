@@ -7,6 +7,10 @@ def home_page_view(request):
     return render(request, 'home.html')
 
 
+def about_page_view(request):
+    return render(request, 'pages/about.html')
+
+
 def contact_page_view(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -27,6 +31,3 @@ def contact_page_view(request):
 
     else:
         return render(request, 'pages/contact.html')
-
-
-
