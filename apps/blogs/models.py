@@ -49,6 +49,7 @@ class BlogModel(BaseModel):
 
     image = models.ImageField(upload_to='blog-post/')
     title = models.CharField(max_length=255)
+
     content = RichTextUploadingField()
 
     status = models.CharField(
