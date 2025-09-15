@@ -20,3 +20,4 @@ class ContactForm(forms.ModelForm):
         if not phone_number.startswith('+'):
             raise forms.ValidationError("Phone number should start with +")
         return self.cleaned_data.get('phone_number')
+
