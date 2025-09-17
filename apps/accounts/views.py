@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.http import urlsafe_base64_decode
 from django.views import View
 from django.views.generic import CreateView, FormView
 
@@ -38,6 +37,25 @@ class RegisterCreateView(CreateView):
         return super().form_invalid(form)
 
 
+class ConfirmEmailView(View):
+    @staticmethod
+    def get(request, uid, token):
+        try:
+            user = User.objects.get(id=uid)
+        except User.DoesNotExist:
+            messages.error(request, "User not found")
+            return redirect('accounts:login')
+
+        if default_token_generator.check_token(user, token):
+            user.is_active = True
+            user.save()
+            messages.success(request, "Your email address is verified!")
+            return redirect(reverse_lazy('accounts:login'))
+        else:
+            messages.error(request, "Link is not correct")
+            return redirect(reverse_lazy('accounts:register'))
+
+
 class LoginFormView(FormView):
     template_name = 'auth/login.html'
     form_class = LoginForm
@@ -61,23 +79,3 @@ class LoginFormView(FormView):
             for error in value:
                 messages.error(request=self.request, message=error)
         return super().form_invalid(form)
-
-
-class ConfirmEmailView(View):
-    @staticmethod
-    def get(request, uidb64, token):
-        try:
-            uid = urlsafe_base64_decode(uidb64).decode()
-            user = User.objects.get(pk=uid)
-        except (User.DoesNotExist, ValueError, TypeError, OverflowError):
-            messages.error(request, "User not found")
-            return redirect('accounts:login')
-
-        if default_token_generator.check_token(user, token):
-            user.is_active = True
-            user.save()
-            messages.success(request, "Your email address is verified!")
-            return redirect('accounts:login')
-        else:
-            messages.error(request, "Link is not correct")
-            return redirect('accounts:register')
