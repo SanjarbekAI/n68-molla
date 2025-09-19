@@ -29,6 +29,7 @@ urlpatterns += i18n_patterns(
     path('blogs/', include('apps.blogs.urls', namespace='blogs')),
     path('products/', include('apps.products.urls', namespace='products')),
     path('accounts/', include('apps.accounts.urls', namespace='accounts')),
+    path('basket/', include('apps.basket.urls', namespace='basket')),
     path('', include('apps.pages.urls', namespace='pages')),
 )
 
