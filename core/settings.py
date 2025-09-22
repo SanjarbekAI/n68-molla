@@ -172,3 +172,8 @@ EMAIL_HOST_PASSWORD = 'tdsk hwxs xfzd jrqy'
 BASKET_SESSION_ID = 'basket'
 SESSION_COOKIE_AGE = 86400  # 1 day
 SESSION_SAVE_EVERY_REQUEST = True
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
