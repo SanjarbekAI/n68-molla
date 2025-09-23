@@ -1,4 +1,6 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
+from django.db.models import CharField, TextField
 
 
 class BaseModel(models.Model):
@@ -29,3 +31,19 @@ class ContactModel(BaseModel):
     class Meta:
         verbose_name = 'Contact'
         verbose_name_plural = 'Contacts'
+
+
+class BannerModel(BaseModel):
+    image = models.ImageField(upload_to='banners/')
+    title = CharField(max_length=256)
+    description = RichTextUploadingField()
+    text = CharField(max_length=128)
+    url = models.URLField(max_length=500, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'banner'
+        verbose_name_plural = 'banners'
