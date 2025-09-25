@@ -112,3 +112,25 @@ class ProductImageModel(BaseModel):
     class Meta:
         verbose_name = 'product image'
         verbose_name_plural = 'product images'
+
+class ProductDeal(BaseModel):
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name="deals")
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    banner = models.ImageField(upload_to="deals/", null=True, blank=True)
+
+    @property
+    def is_active(self):
+        if self.start_time is None or self.end_time is None:
+            return False
+        tashkent_tz = pytz.timezone('Asia/Tashkent')
+        now = datetime.now(tashkent_tz)
+        return self.start_time <= now <= self.end_time
+
+    def __str__(self):
+        return f"Deal for {self.product.title}"
+
+    class Meta:
+        verbose_name = "product deal"
+        verbose_name_plural = "product deals"

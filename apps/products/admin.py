@@ -1,10 +1,10 @@
 from django.contrib import admin
+from .models import ProductDeal
 
 from .models import (
     ProductCategory, ProductSize, ProductColor, ProductBrand,
     ProductModel, ProductQuantity, ProductImageModel
 )
-
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImageModel
@@ -64,3 +64,11 @@ class ProductColorAdmin(admin.ModelAdmin):
 class ProductBrandAdmin(admin.ModelAdmin):
     list_display = ['name']
     search_fields = ['name']
+
+
+@admin.register(ProductDeal)
+class ProductDealAdmin(admin.ModelAdmin):
+    list_display = ("product", "discount_price", "start_time", "end_time", "is_active")
+    list_filter = ("start_time", "end_time", "product")
+    search_fields = ("product__title",)
+    readonly_fields = ("is_active",)

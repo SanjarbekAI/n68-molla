@@ -1,6 +1,9 @@
 from django.views.generic import ListView, DetailView
+from django.shortcuts import render
+from django.utils import timezone
+import pytz
 
-from apps.products.models import ProductCategory, ProductModel, ProductSize, ProductColor, ProductBrand
+from apps.products.models import ProductCategory, ProductModel, ProductSize, ProductColor, ProductBrand, ProductDeal
 
 
 class ProductsListView(ListView):
@@ -46,6 +49,14 @@ class ProductsListView(ListView):
         context['colors'] = ProductColor.objects.all()
         context['sizes'] = ProductSize.objects.all()
 
+        # Add active deal to context
+        tashkent_tz = pytz.timezone('Asia/Tashkent')
+        now = timezone.now().astimezone(tashkent_tz)
+        context['active_deal'] = ProductDeal.objects.filter(
+            start_time__lte=now,
+            end_time__gte=now
+        ).first()
+
         return context
 
 
@@ -53,3 +64,16 @@ class ProductDetailView(DetailView):
     template_name = 'products/product-detail.html'
     queryset = ProductModel.objects.all()
     context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Add active deal to context
+        tashkent_tz = pytz.timezone('Asia/Tashkent')
+        now = timezone.now().astimezone(tashkent_tz)
+        context['active_deal'] = ProductDeal.objects.filter(
+            start_time__lte=now,
+            end_time__gte=now
+        ).first()
+
+        return context
