@@ -1,10 +1,21 @@
 from django.shortcuts import render, redirect
 
+from apps.blogs.models import BlogModel
 from apps.pages.forms import ContactForm
+from apps.products.models import ProductModel
 
 
 def home_page_view(request):
-    return render(request, 'home.html')
+    last_products = ProductModel.objects.all().order_by('-created_at')[:5]
+    last_blogs = BlogModel.objects.filter(
+        status=BlogModel.BlogStatus.PUBLISHED
+    ).order_by('-created_at')[:3]
+
+    return render(request, 'home.html', {
+        'last_products': last_products,
+        'last_blogs': last_blogs,
+    })
+
 
 
 def about_page_view(request):
