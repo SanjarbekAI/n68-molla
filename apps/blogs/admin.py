@@ -1,6 +1,5 @@
 from django.contrib import admin
 from modeltranslation.admin import TranslationAdmin
-
 from apps.blogs.models import BlogCategoryModel, BlogTagModel, BlogAuthorModel, BlogModel, BlogViewModel
 
 

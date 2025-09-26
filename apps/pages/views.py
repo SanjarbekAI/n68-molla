@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 
 from apps.pages.forms import ContactForm
+from apps.pages.models import BannerModel
 
 
 def home_page_view(request):
-    return render(request, 'home.html')
+    banners = BannerModel.objects.filter(is_active=True)
+    context = {'banners': banners}
+    return render(request, 'home.html', context)
 
 
 def about_page_view(request):
@@ -31,3 +34,4 @@ def contact_page_view(request):
 
     else:
         return render(request, 'pages/contact.html')
+
