@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 from apps.products.models import ProductCategory, ProductModel, ProductSize, ProductColor, ProductBrand
@@ -53,3 +54,4 @@ class ProductDetailView(DetailView):
     template_name = 'products/product-detail.html'
     queryset = ProductModel.objects.all()
     context_object_name = 'product'
+
