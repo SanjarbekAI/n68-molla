@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'ckeditor',
     'ckeditor_uploader',
+    'corsheaders',
 
     'apps.pages',
     'apps.blogs',
@@ -171,3 +172,11 @@ try:
     from .local_settings import *
 except ImportError:
     pass
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://ezma.com',
+    'http://ezma.com',
+]
