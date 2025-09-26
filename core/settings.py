@@ -174,10 +174,9 @@ try:
 except ImportError:
     pass
 
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://ezma.com',
-    'http://ezma.com',
+    'https://ezma.uz',
+    'http://ezma.uz',
 ]
