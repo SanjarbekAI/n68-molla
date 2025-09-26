@@ -29,3 +29,20 @@ class ContactModel(BaseModel):
     class Meta:
         verbose_name = 'Contact'
         verbose_name_plural = 'Contacts'
+
+
+class TeamModel(BaseModel):
+    image = models.ImageField(upload_to='team/')
+    full_name = models.CharField(max_length=128)
+    position = models.CharField()
+
+    facebook = models.URLField(blank=True, null=True)
+    twitter = models.URLField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.full_name
+
+    class Meta:
+        verbose_name = 'Team'
+        verbose_name_plural = 'Teams'

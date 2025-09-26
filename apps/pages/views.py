@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 from apps.pages.forms import ContactForm
+from apps.pages.models import TeamModel
 
 
 def home_page_view(request):
@@ -8,7 +9,13 @@ def home_page_view(request):
 
 
 def about_page_view(request):
-    return render(request, 'pages/about.html')
+    teams =TeamModel.objects.all()
+
+    context = {
+        'teams': teams,
+    }
+
+    return render(request, 'pages/about.html', context)
 
 
 def contact_page_view(request):
