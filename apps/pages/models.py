@@ -29,3 +29,23 @@ class ContactModel(BaseModel):
     class Meta:
         verbose_name = 'Contact'
         verbose_name_plural = 'Contacts'
+
+
+class StoreModel(BaseModel):
+    image = models.ImageField()
+    title = models.CharField(max_length=128)
+    location = models.CharField(max_length=128)
+    phone_number = models.CharField(
+        max_length=15, null=True, blank=True
+    )
+    is_active = models.BooleanField(default=True)
+    store_hours = models.CharField(max_length=128)
+    map = models.TextField()
+
+    def __str__(self):
+        return f"{self.title}"
+
+
+    class Meta:
+        verbose_name = 'Store'
+        verbose_name_plural = 'Stores'
