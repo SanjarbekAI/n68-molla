@@ -1,10 +1,12 @@
 asgiref==3.9.1
 Django==5.2.5
 django-ckeditor==6.7.3
+django-cors-headers==4.9.0
 django-extensions==4.1
 django-js-asset==3.1.2
 django-modeltranslation==0.19.16
 pillow==11.3.0
+psycopg2-binary==2.9.10
 python-decouple==3.8
 pytz==2025.2
 sqlparse==0.5.3
