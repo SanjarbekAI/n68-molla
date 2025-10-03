@@ -30,6 +30,7 @@ urlpatterns += i18n_patterns(
     path('products/', include('apps.products.urls', namespace='products')),
     path('accounts/', include('apps.accounts.urls', namespace='accounts')),
     path('basket/', include('apps.basket.urls', namespace='basket')),
+    path('orders/', include('apps.orders.urls', namespace='orders')),
     path('', include('apps.pages.urls', namespace='pages')),
 )
 

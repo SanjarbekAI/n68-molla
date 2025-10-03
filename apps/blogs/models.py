@@ -1,6 +1,7 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
+from apps.blogs.managers import BlogModelManager
 from apps.pages.models import BaseModel
 
 
@@ -71,6 +72,8 @@ class BlogModel(BaseModel):
         BlogTagModel,
         related_name='blogs'
     )
+
+    objects = BlogModelManager()
 
     def views_count(self):
         return self.views.distinct().count()
