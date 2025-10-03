@@ -11,6 +11,9 @@ class BlogListView(ListView):
     template_name = 'blogs/blog-list.html'
 
     def get_queryset(self):
+        print(BlogModel.objects.all_objects().all().values_list('status'))
+        print(BlogModel.objects.all().values_list('status'))
+        print(BlogModel.objects.published().values_list('status'))
         return BlogModel.objects.filter(
             status=BlogModel.BlogStatus.PUBLISHED
         )
@@ -37,6 +40,7 @@ class BlogDetailView(DetailView):
     queryset = BlogModel.objects.all()
     context_object_name = 'blog'
     pk_url_kwarg = 'pk'
+    permission_required = ['']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

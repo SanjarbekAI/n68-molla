@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 from core import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'apps.products',
     'apps.accounts',
     'apps.basket',
+    'apps.orders',
 ]
 
 MIDDLEWARE = [
@@ -180,3 +183,4 @@ CSRF_TRUSTED_ORIGINS = [
     'https://ezma.uz',
     'http://ezma.uz',
 ]
+LOGIN_URL = reverse_lazy('accounts:login')

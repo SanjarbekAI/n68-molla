@@ -1,7 +1,9 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 
 from apps.pages.forms import ContactForm
 from apps.pages.models import BannerModel
+from core import settings
 
 
 def home_page_view(request):
@@ -18,6 +20,13 @@ def contact_page_view(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
+            if not request.user.is_authenticated:
+                return redirect(f"{settings.LOGIN_URL}?next={request.path}")
+
+            # then check permission
+            if not request.user.has_perm("pages.add_contactmodel"):
+                raise PermissionDenied
+
             form.save(commit=False)
             form.result = 1313
             form.save()
@@ -34,4 +43,3 @@ def contact_page_view(request):
 
     else:
         return render(request, 'pages/contact.html')
-
