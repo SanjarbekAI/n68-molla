@@ -12,7 +12,7 @@ class RegisterModelForm(UserCreationForm):
 
 class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop("request", None)  # store request if passed
+        self.request = kwargs.pop("request", None)
         super().__init__(*args, **kwargs)
 
     username = forms.CharField()

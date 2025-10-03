@@ -1,6 +1,6 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
-from django.db.models import CharField, TextField
+from django.db.models import CharField
 
 
 class BaseModel(models.Model):
@@ -31,6 +31,9 @@ class ContactModel(BaseModel):
     class Meta:
         verbose_name = 'Contact'
         verbose_name_plural = 'Contacts'
+        permissions = [
+            ("can_change_status", "Can change contact status"),
+        ]
 
 
 class BannerModel(BaseModel):

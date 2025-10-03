@@ -27,6 +27,7 @@ class Basket:
                 'quantity': 0,
                 'price': str(product.price)
             }
+
         if override_quantity:
             self.basket[product_id]['quantity'] = quantity
         else:
